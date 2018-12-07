@@ -62,10 +62,14 @@
                 data: data,
                 success: function (info) {
                     // 3. 得到服务端的响应结果
-                       console.log(info);
+                    if(info.success){
+                    	location.href = 'index.html';
+                    	return;
+                    } 
+                       alert(info.message);
 
                     // 4. 处理登录后的逻辑
-                       location.href = 'index.html';
+                       
                 }
             })
             

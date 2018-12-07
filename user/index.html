@@ -43,7 +43,7 @@
                 </li>
             </ul>
             <div class="p20">
-                <input href="javascript:;" class="mui-btn btn_outLogin" value="退出登录">
+                <button class="mui-btn btn_outLogin" >退出登录</button>
             </div>
         </div>
         <footer class="cz_tabs">
@@ -64,12 +64,23 @@
             type: 'get',
             success: function (info) {
                 // 3. 获取响应结果
-                console.log(info);
+                if(info.error){
+                	location.href = '/user/login.html';            	
+                }
             }
         })
         
 
-
+		//退出登录
+		$('.btn_outLogin').on('click', function () {
+			$.ajax({
+				type:"get",
+				url:"/api/user/logout",
+				success: function (info) {
+					location.href='/index.html'
+				}
+			});
+		})
     </script>
 </body>
 </html>
