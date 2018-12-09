@@ -46,6 +46,20 @@
     <script src="../js/jquery.min.js"></script>
     <script src="../res/mui/js/mui.min.js"></script>
     <script>
+    	//此页面地址中有url参数
+    	//登录成功后跳转到该页面
+    	var search = location.search.slice(1);
+    	//使用正则表达式匹配url参数的值
+    	var reg = /url=(.+)/;
+    	//匹配到的地址
+    	var match = reg.exec(search);
+//  	if(match){
+//  		var url = match[1];
+//  	}else {
+//  		var url = '/';
+//  	}
+    	var url = match && match[1];
+    	url = url || '/';
 
         // 监听表单提交
         $('form').on('submit', function () {
@@ -63,7 +77,7 @@
                 success: function (info) {
                     // 3. 得到服务端的响应结果
                     if(info.success){
-                    	location.href = 'index.html';
+                    	location.href = url;
                     	return;
                     } 
                        alert(info.message);
