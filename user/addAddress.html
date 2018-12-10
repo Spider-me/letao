@@ -30,13 +30,21 @@
 						<div class="mui-input-row">
 							<input name="postcode" type="text" placeholder="邮编">
 						</div>
-						<div class="mui-input-row">
-							<input name="address" type="text" placeholder="省市县">
+						<div class="mui-input-row hometown">
+							<select name="" id="a" data-id="">
+
+							</select>
+							<select name="" id="b" data-id="">
+
+							</select>
+							<select name="" id="c" data-id="">
+
+							</select>
 						</div>
 						<div class="mui-input-row">
 							<textarea name="addressDetail" id="textarea" rows="5" placeholder="多行文本框"></textarea>
 						</div>
-						<input type="submit" class="mui-btn mui-btn-primary btn_login" value="确认"/>
+						<input type="submit" class="mui-btn mui-btn-primary btn_login" value="确认" />
 					</div>
 				</form>
 			</div>
@@ -48,15 +56,21 @@
 			</footer>
 		</div>
 		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.region.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../res/mui/js/mui.min.js"></script>
 		<script type="text/javascript">
-			$('form').on('submit', function () {
+			$('form').on('submit', function() {
 				var data = $(this).serialize();
+				//省市县获取
+				var p = $('#a option:selected').text();
+				var c = $('#b option:selected').text();
+				var d = $('#c option:selected').text();
+				data += '&address=' + p + c + d;
 				$.ajax({
-					type:"post",
-					url:"/api/address/addAddress",
-					data:data,
-					success : function (info) {
+					type: "post",
+					url: "/api/address/addAddress",
+					data: data,
+					success: function(info) {
 						if(info.success) {
 							location.href = 'address.html';
 							return;
@@ -65,7 +79,11 @@
 					}
 				});
 				return false;
-			})
+			});
+			//调用省市县
+			$('.hometown').region({
+				url: '/js/region.json'
+			});
 		</script>
 	</body>
 
